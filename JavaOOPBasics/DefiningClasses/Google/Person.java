@@ -6,21 +6,15 @@ public class Person {
     private String name;
     private Company company;
     private Car car;
-    private ArrayList<Pokemon> pokemons = new ArrayList<>();
-    private ArrayList<Child> children = new ArrayList<>();
-    private ArrayList<Parent> parents = new ArrayList<>();
-
-    public Person(String name, Company company, Car car, ArrayList<Pokemon> pokemons, ArrayList<Child> children, ArrayList<Parent> parents) {
-        this.name = name;
-        this.company = company;
-        this.car = car;
-        this.pokemons = pokemons;
-        this.children = children;
-        this.parents = parents;
-    }
+    private ArrayList<Pokemon> pokemons;
+    private ArrayList<Child> children;
+    private ArrayList<Parent> parents;
 
     public Person(String name) {
         this.name = name;
+        this.pokemons = new ArrayList<>();
+        this.children = new ArrayList<>();
+        this.parents = new ArrayList<>();
     }
 
     public String getName() {
