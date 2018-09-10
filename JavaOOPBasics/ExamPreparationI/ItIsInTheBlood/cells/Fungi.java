@@ -1,4 +1,4 @@
-package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood;
+package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood.cells;
 
 public class Fungi extends Microbe {
     public Fungi(String id, int health, int positionRow, int positionCol, int virulence) {

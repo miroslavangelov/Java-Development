@@ -1,4 +1,4 @@
-package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood;
+package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood.cells;
 
 public abstract class BloodCell extends Cell {
     public BloodCell(String id, int health, int positionRow, int positionCol) {
@@ -6,7 +6,7 @@ public abstract class BloodCell extends Cell {
     }
 
     @Override
-    protected Cell attack(Cell otherCell) {
+    public Cell attack(Cell otherCell) {
         this.addHealth(otherCell.getHealth());
         this.setPositionRow(otherCell.getPositionRow());
         this.setPositionCol(otherCell.getPositionCol());

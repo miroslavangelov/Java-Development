@@ -17,9 +17,6 @@ public class Main {
             String name = commandData[1];
 
             switch (commandType) {
-                case "checkCondition":
-                    result.append(healthManager.checkCondition(name));
-                    break;
                 case "createOrganism":
                     result.append(healthManager.createOrganism(name));
                     break;
@@ -41,6 +38,9 @@ public class Main {
                     break;
                 case "activateCluster":
                     result.append(healthManager.activateCluster(name));
+                    break;
+                case "checkCondition":
+                    result.append(healthManager.checkCondition(name));
                     break;
             }
 

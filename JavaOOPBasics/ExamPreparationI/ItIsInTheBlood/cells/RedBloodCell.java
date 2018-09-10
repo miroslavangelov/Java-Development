@@ -1,4 +1,4 @@
-package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood;
+package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood.cells;
 
 public class RedBloodCell extends BloodCell {
     private int velocity;

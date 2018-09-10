@@ -1,4 +1,4 @@
-package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood;
+package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood.cells;
 
 public abstract class Microbe extends Cell {
     private int virulence;
@@ -19,7 +19,7 @@ public abstract class Microbe extends Cell {
     }
 
     @Override
-    protected Cell attack(Cell otherCell) {
+    public Cell attack(Cell otherCell) {
         while (true) {
             otherCell.addHealth(-this.getEnergy());
 

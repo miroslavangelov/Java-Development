@@ -1,5 +1,7 @@
 package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood;
 
+import JavaOOPBasics.ExamPreparationI.ItIsInTheBlood.cells.Cell;
+
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -37,8 +39,10 @@ public class Organism {
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        result.append(String.format("Organism - %s%n", this.getName()))
-                .append(String.format("--Clusters: %d%n", this.getClusters().size()))
+        result.append(String.format("Organism - %s", this.getName()))
+                .append(System.lineSeparator())
+                .append(String.format("--Clusters: %d", this.getClusters().size()))
+                .append(System.lineSeparator())
                 .append(String.format("--Cells: %d%n", this.getCellsCount()));
 
         for (Cluster cluster: this.getClusters().values()) {

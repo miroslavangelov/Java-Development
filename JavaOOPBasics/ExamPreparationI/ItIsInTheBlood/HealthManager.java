@@ -1,5 +1,7 @@
 package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood;
 
+import JavaOOPBasics.ExamPreparationI.ItIsInTheBlood.cells.*;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 

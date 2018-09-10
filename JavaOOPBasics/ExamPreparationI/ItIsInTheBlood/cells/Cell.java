@@ -1,10 +1,11 @@
-package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood;
+package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood.cells;
 
 public abstract class Cell implements Comparable<Cell> {
     private String id;
     private int health;
     private int positionRow;
     private int positionCol;
+    private int energy;
 
     public Cell(String id, int health, int positionRow, int positionCol) {
         this.id = id;
@@ -14,6 +15,8 @@ public abstract class Cell implements Comparable<Cell> {
     }
 
     public abstract int getEnergy();
+
+    public abstract Cell attack(Cell otherCell);
 
     public String getId() {
         return id;
@@ -39,6 +42,10 @@ public abstract class Cell implements Comparable<Cell> {
         this.positionCol = positionCol;
     }
 
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
+
     public void addHealth(int health) {
         this.health += health;
     }
@@ -55,6 +62,4 @@ public abstract class Cell implements Comparable<Cell> {
         }
         return Integer.compare(this.positionRow, other.positionRow);
     }
-
-    protected abstract Cell attack(Cell otherCell);
 }

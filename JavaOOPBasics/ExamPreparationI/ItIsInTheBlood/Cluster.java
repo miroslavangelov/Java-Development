@@ -1,5 +1,7 @@
 package JavaOOPBasics.ExamPreparationI.ItIsInTheBlood;
 
+import JavaOOPBasics.ExamPreparationI.ItIsInTheBlood.cells.Cell;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
