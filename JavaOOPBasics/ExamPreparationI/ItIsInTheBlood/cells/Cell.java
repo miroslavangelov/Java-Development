@@ -5,7 +5,6 @@ public abstract class Cell implements Comparable<Cell> {
     private int health;
     private int positionRow;
     private int positionCol;
-    private int energy;
 
     public Cell(String id, int health, int positionRow, int positionCol) {
         this.id = id;
@@ -40,10 +39,6 @@ public abstract class Cell implements Comparable<Cell> {
 
     public void setPositionCol(int positionCol) {
         this.positionCol = positionCol;
-    }
-
-    public void setEnergy(int energy) {
-        this.energy = energy;
     }
 
     public void addHealth(int health) {

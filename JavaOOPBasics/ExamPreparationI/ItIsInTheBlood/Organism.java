@@ -39,10 +39,8 @@ public class Organism {
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        result.append(String.format("Organism - %s", this.getName()))
-                .append(System.lineSeparator())
-                .append(String.format("--Clusters: %d", this.getClusters().size()))
-                .append(System.lineSeparator())
+        result.append(String.format("Organism - %s%n", this.getName()))
+                .append(String.format("--Clusters: %d%n", this.getClusters().size()))
                 .append(String.format("--Cells: %d%n", this.getCellsCount()));
 
         for (Cluster cluster: this.getClusters().values()) {
