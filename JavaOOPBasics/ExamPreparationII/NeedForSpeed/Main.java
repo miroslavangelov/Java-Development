@@ -29,7 +29,7 @@ public class Main {
                     break;
                 case "check":
                     id = Integer.parseInt(data[1]);
-                    System.out.printf(carManager.check(id));
+                    System.out.print(carManager.check(id));
                     break;
                 case "open":
                     id = Integer.parseInt(data[1]);
@@ -46,7 +46,7 @@ public class Main {
                     break;
                 case "start":
                     raceId = Integer.parseInt(data[1]);
-                    System.out.printf(carManager.start(raceId));
+                    System.out.print(carManager.start(raceId));
                     break;
                 case "park":
                     raceId = Integer.parseInt(data[1]);

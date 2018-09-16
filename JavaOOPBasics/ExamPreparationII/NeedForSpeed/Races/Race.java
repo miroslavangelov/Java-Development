@@ -3,6 +3,7 @@ package JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Cars.Car;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class Race {
     private int length;
@@ -49,21 +50,78 @@ public abstract class Race {
         this.participants.putIfAbsent(carId, car);
     }
 
-    public int getMoneyWon(int place) {
-        if (place == 1) {
-            return this.getPrizePool() * 50/100;
-        } else if (place == 2) {
-            return this.getPrizePool() * 30/100;
-        } else if (place == 3) {
-            return this.getPrizePool() * 20/100;
+    private List<Car> getWinners() {
+        int count = 0;
+        int winnersCount = this.getParticipants().size() < 3 ? this.getParticipants().size() : 3;
+        List<Car> winners = new LinkedList<>();
+
+        LinkedHashMap<Integer, Car> orderedParticipants = this.getParticipants()
+                .entrySet()
+                .stream()
+                .sorted((e1, e2) -> {
+                    String raceType = this.getClass().getSimpleName();
+                    return Integer.compare(this.performancePoints(raceType, e2.getValue()), this.performancePoints(raceType, e1.getValue()));
+                })
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (x1, x2) -> {throw new AssertionError();},
+                        LinkedHashMap::new
+                ));
+
+        for (Map.Entry<Integer,Car> winner : orderedParticipants.entrySet()) {
+            if (count == winnersCount) {
+                break;
+            }
+
+            winners.add(winner.getValue());
+            count++;
         }
+
+        return winners;
+    }
+
+    private int performancePoints(String raceType, Car car) {
+        switch (raceType) {
+            case "CasualRace":
+                return car.getOverallPerformance();
+            case "DragRace":
+                return car.getEnginePerformance();
+            case "DriftRace":
+                return car.getSuspensionPerformance();
+        }
+
         return 0;
     }
 
-    public abstract List<Car> getWinners();
-
     @Override
     public String toString() {
-        return String.format("%s - %d%n", this.getRoute(),  this.getLength());
+        String raceType = this.getClass().getSimpleName();
+        List<Car> winners = this.getWinners();
+        StringBuilder result = new StringBuilder();
+
+        result.append(String.format("%s - %s%n", this.getRoute(), this.getLength()));
+
+        for (int i = 0; i < winners.size(); i++) {
+            Car currentCar = winners.get(i);
+            int moneyWon = 0;
+
+            if (i + 1 == 1) {
+                moneyWon = this.getPrizePool() * 50/100;
+            } else if (i + 1 == 2) {
+                moneyWon = this.getPrizePool() * 30/100;
+            } else if (i + 1 == 3) {
+                moneyWon = this.getPrizePool() * 20/100;
+            }
+            result.append(String.format("%d. %s %s %dPP - $%d%n",
+                    i + 1,
+                    currentCar.getBrand(),
+                    currentCar.getModel(),
+                    this.performancePoints(raceType, currentCar),
+                    moneyWon)
+            );
+        }
+
+        return result.toString();
     }
 }

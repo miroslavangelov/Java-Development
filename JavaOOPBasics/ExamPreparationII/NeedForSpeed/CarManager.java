@@ -9,20 +9,18 @@ import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.DragRace;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.DriftRace;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.Race;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CarManager {
     private Map<Integer, Car> cars;
     private Map<Integer, Race> races;
-    private Map<Integer, Race> closedRaces;
     private Garage garage;
 
     public CarManager() {
-        this.cars = new HashMap<>();
-        this.races = new HashMap<>();
+        this.cars = new LinkedHashMap<>();
+        this.races = new LinkedHashMap<>();
         this.garage = new Garage();
-        this.closedRaces = new HashMap<>();
     }
 
     public void register(int id, String type, String brand, String model, int yearOfProduction, int horsepower, int acceleration, int suspension, int durability) {
@@ -32,7 +30,10 @@ public class CarManager {
         } else if (type.equals("Show")) {
             car = new ShowCar(brand, model, yearOfProduction, horsepower, acceleration, suspension, durability);
         }
-        this.cars.putIfAbsent(id, car);
+
+        if (car != null) {
+            this.cars.putIfAbsent(id, car);
+        }
     }
 
     public String check(int id) {
@@ -55,32 +56,29 @@ public class CarManager {
                 race = new DriftRace(length, route, prizePool);
                 break;
         }
-        races.putIfAbsent(id, race);
+        if (race != null) {
+            races.putIfAbsent(id, race);
+        }
     }
 
     public void participate(int carId, int raceId) {
         if(!this.garage.isParked(carId)) {
             Car car = this.cars.get(carId);
             Race race = this.races.get(raceId);
-
-            if (!this.closedRaces.containsKey(raceId)) {
-                race.addCar(carId, car);
-            }
+            race.addCar(carId, car);
         }
     }
 
     public String start(int id) {
-        if (!this.closedRaces.containsKey(id)) {
-            Race race = this.races.get(id);
+        Race race = this.races.get(id);
 
-            if (race.getParticipants().size() == 0) {
-                return "Cannot start the race with zero participants.%n";
-            }
-
-            this.closedRaces.putIfAbsent(id, this.races.remove(id));
-            return race.toString();
+        if (race.getParticipants().size() == 0) {
+            return String.format("Cannot start the race with zero participants.%n");
         }
-        return "";
+
+        String raceResult = race.toString();
+        this.races.remove(id);
+        return raceResult;
     }
 
     public void park(int id) {

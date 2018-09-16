@@ -1,9 +1,5 @@
 package JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races;
 
-import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Cars.Car;
-
-import java.util.List;
-
 public class CircuitRace extends Race {
     private int laps;
 
@@ -18,10 +14,5 @@ public class CircuitRace extends Race {
 
     public void setLaps(int laps) {
         this.laps = laps;
-    }
-
-    @Override
-    public List<Car> getWinners() {
-        return null;
     }
 }
