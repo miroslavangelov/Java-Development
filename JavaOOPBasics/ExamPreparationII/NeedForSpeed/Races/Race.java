@@ -3,7 +3,6 @@ package JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Cars.Car;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class Race {
     private int length;
@@ -50,56 +49,21 @@ public abstract class Race {
         this.participants.putIfAbsent(carId, car);
     }
 
-    public List<Car> getWinners() {
-        List<Car> winners = new LinkedList<>();
-        int winnersCount = this.getParticipants().size() < 3 ? this.getParticipants().size() : 3;
-        LinkedHashMap<Integer, Car> orderedParticipants = this.getParticipants()
-                .entrySet()
-                .stream()
-                .sorted((e1, e2) -> Integer.compare(e2.getValue().getPerformancePoints(), e1.getValue().getPerformancePoints()))
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (x1, x2) -> {throw new AssertionError();},
-                        LinkedHashMap::new
-                ));
-
-        int count = 0;
-
-        for (Map.Entry<Integer,Car> winner : orderedParticipants.entrySet()) {
-            if (count == winnersCount) {
-                break;
-            }
-
-            Car currentCar = winner.getValue();
-            if (count == 0) {
-                currentCar.setMoneyWon(this.getPrizePool() * 50/100);
-            } else if (count == 1) {
-                currentCar.setMoneyWon(this.getPrizePool() * 30/100);
-            } else if (count == 2) {
-                currentCar.setMoneyWon(this.getPrizePool() * 20/100);
-            }
-            winners.add(currentCar);
-            count++;
+    public int getMoneyWon(int place) {
+        if (place == 1) {
+            return this.getPrizePool() * 50/100;
+        } else if (place == 2) {
+            return this.getPrizePool() * 30/100;
+        } else if (place == 3) {
+            return this.getPrizePool() * 20/100;
         }
-
-        return winners;
+        return 0;
     }
 
-    public abstract void calculatePerformance();
+    public abstract List<Car> getWinners();
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        List<Car> winners = this.getWinners();
-
-        result.append(String.format("%s - %d%n", this.getRoute(),  this.getLength()));
-
-        for (int i = 0; i < winners.size(); i++) {
-            Car currentCar = winners.get(i);
-            result.append(String.format("%d. %s %s %dPP - $%d%n", i + 1, currentCar.getBrand(),  currentCar.getModel(), currentCar.getPerformancePoints(), currentCar.getMoneyWon()));
-        }
-
-        return result.toString();
+        return String.format("%s - %d%n", this.getRoute(),  this.getLength());
     }
 }

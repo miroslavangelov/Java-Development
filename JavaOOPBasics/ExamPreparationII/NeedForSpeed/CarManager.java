@@ -77,7 +77,6 @@ public class CarManager {
                 return "Cannot start the race with zero participants.%n";
             }
 
-            race.calculatePerformance();
             this.closedRaces.putIfAbsent(id, this.races.remove(id));
             return race.toString();
         }
