@@ -3,6 +3,7 @@ package JavaOOPBasics.ExamPreparationII.NeedForSpeed;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Cars.Car;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Cars.PerformanceCar;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Cars.ShowCar;
+import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Garages.Garage;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.CasualRace;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.DragRace;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.DriftRace;
@@ -14,10 +15,14 @@ import java.util.Map;
 public class CarManager {
     private Map<Integer, Car> cars;
     private Map<Integer, Race> races;
+    private Map<Integer, Race> closedRaces;
+    private Garage garage;
 
     public CarManager() {
         this.cars = new HashMap<>();
         this.races = new HashMap<>();
+        this.garage = new Garage();
+        this.closedRaces = new HashMap<>();
     }
 
     public void register(int id, String type, String brand, String model, int yearOfProduction, int horsepower, int acceleration, int suspension, int durability) {
@@ -54,24 +59,58 @@ public class CarManager {
     }
 
     public void participate(int carId, int raceId) {
-        Car car = this.cars.get(carId);
-        Race race = this.races.get(raceId);
-        race.addCar(car);
+        if(!this.garage.isParked(carId)) {
+            Car car = this.cars.get(carId);
+            Race race = this.races.get(raceId);
+
+            if (!this.closedRaces.containsKey(raceId)) {
+                race.addCar(carId, car);
+            }
+        }
     }
 
     public String start(int id) {
-        return null;
+        if (!this.closedRaces.containsKey(id)) {
+            Race race = this.races.get(id);
+
+            if (race.getParticipants().size() == 0) {
+                return "Cannot start the race with zero participants.%n";
+            }
+
+            race.calculatePerformance();
+            this.closedRaces.putIfAbsent(id, this.races.remove(id));
+            return race.toString();
+        }
+        return "";
     }
 
     public void park(int id) {
-
+        if (!this.isRacer(id)) {
+            Car car = this.cars.get(id);
+            this.garage.parkCar(id, car);
+        }
     }
 
     public void unpark(int id) {
-
+        if (this.garage.isParked(id)) {
+            this.garage.unpark(id);
+        }
     }
 
     public void tune(int tuneIndex, String addOn) {
+        for (Map.Entry<Integer, Car> entry : this.garage.getParkedCars().entrySet()) {
+            entry.getValue().tune(tuneIndex, addOn);
+        }
+    }
 
+    private boolean isRacer(int id) {
+        for (Map.Entry<Integer, Race> entry: this.races.entrySet()) {
+            for (Map.Entry<Integer, Car> car: entry.getValue().getParticipants().entrySet()) {
+                if (car.getKey() == id) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

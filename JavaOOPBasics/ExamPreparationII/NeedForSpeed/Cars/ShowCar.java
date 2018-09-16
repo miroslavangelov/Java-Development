@@ -17,10 +17,16 @@ public class ShowCar extends Car {
     }
 
     @Override
+    public void tune(int tuneIndex, String addon) {
+        super.tune(tuneIndex, addon);
+        this.setStars(this.stars + tuneIndex);
+    }
+
+    @Override
     public String toString() {
         StringBuilder result = new StringBuilder(super.toString());
 
-        result.append(String.format("%d *", this.getStars()));
+        result.append(String.format("%d *%n", this.getStars()));
 
         return result.toString();
     }

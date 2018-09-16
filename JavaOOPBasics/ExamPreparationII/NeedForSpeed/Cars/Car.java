@@ -8,6 +8,8 @@ public abstract class Car {
     private int acceleration;
     private int suspension;
     private int durability;
+    private int performancePoints;
+    private int moneyWon;
 
     protected Car(String brand, String model, int yearOfProduction, int horsepower, int acceleration, int suspension, int durability) {
         this.setBrand(brand);
@@ -17,6 +19,8 @@ public abstract class Car {
         this.setAcceleration(acceleration);
         this.setHorsepower(horsepower);
         this.setSuspension(suspension);
+        this.setPerformancePoints(0);
+        this.setMoneyWon(0);
     }
 
     public String getBrand() {
@@ -47,11 +51,19 @@ public abstract class Car {
         return durability;
     }
 
-    protected void setSuspension(int suspension) {
+    public int getPerformancePoints() {
+        return performancePoints;
+    }
+
+    public int getMoneyWon() {
+        return moneyWon;
+    }
+
+    public void setSuspension(int suspension) {
         this.suspension = suspension;
     }
 
-    protected void setHorsepower(int horsepower) {
+    public void setHorsepower(int horsepower) {
         this.horsepower = horsepower;
     }
 
@@ -73,6 +85,19 @@ public abstract class Car {
 
     public void setDurability(int durability) {
         this.durability = durability;
+    }
+
+    public void setPerformancePoints(int performancePoints) {
+        this.performancePoints = performancePoints;
+    }
+
+    public void setMoneyWon(int moneyWon) {
+        this.moneyWon = moneyWon;
+    }
+
+    public void tune(int tuneIndex, String addon) {
+        this.horsepower += tuneIndex;
+        this.suspension += tuneIndex/2;
     }
 
     @Override

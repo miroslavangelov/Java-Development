@@ -34,12 +34,18 @@ public class PerformanceCar extends Car {
     }
 
     @Override
-    protected void setHorsepower(int horsepower) {
-        super.setHorsepower(horsepower + (horsepower*50)/100);
+    public void tune(int tuneIndex, String addon) {
+        super.tune(tuneIndex, addon);
+        this.addOns.add(addon);
     }
 
     @Override
-    protected void setSuspension(int suspension) {
-        super.setSuspension(suspension - (suspension*25)/100);
+    public void setHorsepower(int horsepower) {
+        super.setHorsepower(horsepower + horsepower*50/100);
+    }
+
+    @Override
+    public void setSuspension(int suspension) {
+        super.setSuspension(suspension - suspension*25/100);
     }
 }
