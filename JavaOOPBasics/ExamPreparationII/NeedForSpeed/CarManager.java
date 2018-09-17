@@ -4,10 +4,7 @@ import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Cars.Car;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Cars.PerformanceCar;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Cars.ShowCar;
 import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Garages.Garage;
-import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.CasualRace;
-import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.DragRace;
-import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.DriftRace;
-import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.Race;
+import JavaOOPBasics.ExamPreparationII.NeedForSpeed.Races.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -54,6 +51,22 @@ public class CarManager {
                 break;
             case "Drift":
                 race = new DriftRace(length, route, prizePool);
+                break;
+        }
+        if (race != null) {
+            races.putIfAbsent(id, race);
+        }
+    }
+
+    public void open(int id, String type, int length, String route, int prizePool, int extraParam) {
+        Race race = null;
+
+        switch (type) {
+            case "Circuit":
+                race = new CircuitRace(length, route, prizePool, extraParam);
+                break;
+            case "TimeLimit":
+                race = new TimeLimitRace(length, route, prizePool, extraParam);
                 break;
         }
         if (race != null) {

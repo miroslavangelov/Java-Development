@@ -50,9 +50,9 @@ public abstract class Race {
         this.participants.putIfAbsent(carId, car);
     }
 
-    private List<Car> getWinners() {
+    public List<Car> getWinners(int maxParticipants) {
         int count = 0;
-        int winnersCount = this.getParticipants().size() < 3 ? this.getParticipants().size() : 3;
+        int winnersCount = this.getParticipants().size() < maxParticipants ? this.getParticipants().size() : maxParticipants;
         List<Car> winners = new LinkedList<>();
 
         LinkedHashMap<Integer, Car> orderedParticipants = this.getParticipants()
@@ -81,9 +81,10 @@ public abstract class Race {
         return winners;
     }
 
-    private int performancePoints(String raceType, Car car) {
+    public int performancePoints(String raceType, Car car) {
         switch (raceType) {
             case "CasualRace":
+            case "CircuitRace":
                 return car.getOverallPerformance();
             case "DragRace":
                 return car.getEnginePerformance();
@@ -97,7 +98,7 @@ public abstract class Race {
     @Override
     public String toString() {
         String raceType = this.getClass().getSimpleName();
-        List<Car> winners = this.getWinners();
+        List<Car> winners = this.getWinners(3);
         StringBuilder result = new StringBuilder();
 
         result.append(String.format("%s - %s%n", this.getRoute(), this.getLength()));

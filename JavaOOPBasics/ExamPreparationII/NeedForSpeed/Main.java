@@ -37,7 +37,14 @@ public class Main {
                     int length = Integer.parseInt(data[3]);
                     String route = data[4];
                     int prizePool = Integer.parseInt(data[5]);
-                    carManager.open(id, type, length, route, prizePool);
+
+                    if (data.length == 6) {
+                        carManager.open(id, type, length, route, prizePool);
+                    } else if (data.length == 7) {
+                        int extraParam = Integer.parseInt(data[6]);
+                        carManager.open(id, type, length, route, prizePool, extraParam);
+                    }
+
                     break;
                 case "participate":
                     int carId = Integer.parseInt(data[1]);
