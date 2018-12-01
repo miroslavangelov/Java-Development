@@ -42,13 +42,9 @@ public abstract class BaseAgent implements Agent {
 
     @Override
     public void completeMissions() {
-        for (Mission currentMission : assignedMissions) {
-            Double missionRating = currentMission.getRating();
-            this.rating += missionRating;
-            this.completedMissions.add(currentMission);
-        }
-
-        assignedMissions.clear();
+        this.completedMissions.addAll(this.assignedMissions);
+        this.achieveBonuses();
+        this.assignedMissions.clear();
     }
 
     @Override
@@ -68,8 +64,18 @@ public abstract class BaseAgent implements Agent {
         return result.toString();
     }
 
+    protected void achieveBonuses() {
+        for (Mission currentMission : assignedMissions) {
+            this.rating += currentMission.getRating();
+        }
+    }
+
     protected List<Mission> getCompletedMissions() {
         return this.completedMissions;
+    }
+
+    protected List<Mission> getAssignedMissions() {
+        return this.assignedMissions;
     }
 
     protected void setCompletedMissions(List<Mission> completedMissions) {

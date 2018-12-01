@@ -27,16 +27,6 @@ public class MasterAgent extends BaseAgent implements BountyAgent {
     }
 
     @Override
-    public void completeMissions() {
-        super.completeMissions();
-        for (Mission completedMission: super.getCompletedMissions()) {
-            if (!this.completedMissionsByNoviceAgent.contains(completedMission))
-                this.bounty += completedMission.getBounty();
-        }
-
-    }
-
-    @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
 
@@ -45,5 +35,15 @@ public class MasterAgent extends BaseAgent implements BountyAgent {
                 .append(String.format("Bounty Earned: $%.2f", this.getBounty()));
 
         return result.toString();
+    }
+
+    @Override
+    protected void achieveBonuses() {
+        for (Mission completedMission: super.getCompletedMissions()) {
+            if (!this.completedMissionsByNoviceAgent.contains(completedMission)) {
+                this.bounty += completedMission.getBounty();
+                this.setRating(this.getRating() + completedMission.getRating());
+            }
+        }
     }
 }
