@@ -27,7 +27,7 @@ public class EngineImpl implements Engine {
         while (true){
             List<String> lineTokens = Arrays.asList(line.split("\\s+"));
             List<String> formattedLineTokens = lineTokens.stream().skip(1).collect(Collectors.toList());
-System.out.println(String.join(", ", formattedLineTokens));
+
             switch (lineTokens.get(0)){
                 case "Agent" :
                     this.writer.println(this.missionManager.agent(formattedLineTokens));

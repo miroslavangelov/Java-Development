@@ -72,7 +72,7 @@ public class MissionControlImpl implements MissionControl {
     }
 
     private Class currentMission() {
-        if (this.missionIterator.hasNext()) {
+        if (!this.missionIterator.hasNext()) {
             this.updateMissionType();
         }
 
