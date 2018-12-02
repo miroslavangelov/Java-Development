@@ -74,10 +74,6 @@ public abstract class BaseAgent implements Agent {
         return this.completedMissions;
     }
 
-    protected List<Mission> getAssignedMissions() {
-        return this.assignedMissions;
-    }
-
     protected void setCompletedMissions(List<Mission> completedMissions) {
         this.completedMissions = completedMissions;
     }
