@@ -84,12 +84,12 @@ public class Patient {
         this.picture = picture;
     }
 
-    @Column(name = "has_medical_insurance")
-    public boolean hasMedicalInsurance() {
+    @Column(name = "medical_insurance")
+    public boolean isHasMedicalInsurance() {
         return hasMedicalInsurance;
     }
 
-    public void setMedicalInsurance(boolean hasMedicalInsurance) {
+    public void setHasMedicalInsurance(boolean hasMedicalInsurance) {
         this.hasMedicalInsurance = hasMedicalInsurance;
     }
 
