@@ -51,4 +51,14 @@ public class AuthorServiceImpl implements AuthorService {
             this.authorRepository.saveAndFlush(author);
         }
     }
+
+    @Override
+    public List<Author> getAllAuthorsFirstNameEndsWith(String endsWith) {
+        return this.authorRepository.findAllByFirstNameEndsWith(endsWith);
+    }
+
+    @Override
+    public List<Author> getAllAuthorsLastnameStartsWith(String st) {
+        return this.authorRepository.findAllByLastNameStartsWith(st);
+    }
 }

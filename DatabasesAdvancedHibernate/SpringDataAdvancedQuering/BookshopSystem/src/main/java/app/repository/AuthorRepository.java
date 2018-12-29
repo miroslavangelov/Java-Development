@@ -17,4 +17,8 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
             "        GROUP BY a.id) AS authors\n" +
             "ORDER BY authors.count DESC;", nativeQuery = true)
     List<Author> findAuthorsByOrOrderByBooksDesc();
+
+    List<Author> findAllByFirstNameEndsWith(String endsWith);
+
+    List<Author> findAllByLastNameStartsWith(String st);
 }

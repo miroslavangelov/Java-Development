@@ -1,7 +1,9 @@
 package app.controller;
 
 import app.domain.entities.AgeRestriction;
+import app.domain.entities.Author;
 import app.domain.entities.Book;
+import app.domain.entities.EditionType;
 import app.service.AuthorService;
 import app.service.BookService;
 import app.service.CategoryService;
@@ -49,14 +51,82 @@ public class BookshopController implements CommandLineRunner {
 //        Problem 3
 //        List<Book> booksWithPriceBetween = this.bookService.getAllBooksByPriceBetween();
 //        booksWithPriceBetween.forEach(book -> System.out.println(String.format(
-//                "%s %s",
+//                "%s %.2f",
 //                book.getTitle(),
-//                book.getPrice().toString()
+//                book.getPrice()
 //        )));
 
 //        Problem 4
-        int year = Integer.parseInt(reader.readLine());
-        List<Book> booksByNotReleasedYear = this.bookService.getAllBooksNotReleased(year);
-        booksByNotReleasedYear.forEach(book -> System.out.println(book.getTitle()));
+//        int year = Integer.parseInt(reader.readLine());
+//        List<Book> booksByNotReleasedYear = this.bookService.getAllBooksNotReleased(year);
+//        booksByNotReleasedYear.forEach(book -> System.out.println(book.getTitle()));
+
+//        Problem 5
+//        String inputDate = reader.readLine();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        LocalDate date = LocalDate.parse(inputDate, formatter);
+//        List<Book> booksByReleaseDateBefore = this.bookService.getAllBooksByReleaseDateBefore(date);
+//        booksByReleaseDateBefore.forEach(book -> System.out.println(String.format(
+//                "%s %s %.2f",
+//                book.getTitle(),
+//                book.getEditionType().name(),
+//                book.getPrice()
+//        )));
+
+//        Problem 6
+//        String endsWith = reader.readLine();
+//        List<Author> authorsFirstNameEndsWith = this.authorService.getAllAuthorsFirstNameEndsWith(endsWith);
+//        authorsFirstNameEndsWith.forEach(
+//                author -> System.out.println(String.format("%s %s", author.getFirstName(), author.getLastName()))
+//        );
+
+//        Problem 7
+//        String st = reader.readLine().toLowerCase();
+//        List<Book> booksTitleContains = this.bookService.getAllBooksByTitleContains(st);
+//        booksTitleContains.forEach(book -> System.out.println(book.getTitle()));
+
+//        Problem 8
+//        String st = reader.readLine();
+//        List<Author> authorsLastNameEndsWith = this.authorService.getAllAuthorsLastnameStartsWith(st);
+//        authorsLastNameEndsWith.forEach(
+//                author -> author.getBooks().forEach(
+//                        book -> System.out.println(String.format(
+//                                "%s (%s %s)",
+//                                book.getTitle(),
+//                                author.getFirstName(),
+//                                author.getLastName()
+//                        ))
+//                )
+//        );
+
+//        Problem 9
+//        int length = Integer.parseInt(reader.readLine());
+//        System.out.println(this.bookService.countBooksByTitleLongerThan(length));
+
+//        Problem 10
+//        this.bookService.totalBookCopies().forEach(System.out::println);
+
+//        Problem 11
+//        String title = reader.readLine();
+//        this.bookService.reduceBook(title)
+//                .forEach(reducedBook -> System.out.println(String.format(
+//                        "%s %s %s %s",
+//                        reducedBook.getTitle(),
+//                        reducedBook.getEditionType(),
+//                        reducedBook.getAgeRestriction(),
+//                        reducedBook.getPrice()
+//                )));
+
+//        Problem 12
+//        String inputDate = reader.readLine();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+//        LocalDate date = LocalDate.parse(inputDate, formatter);
+//        int copies = Integer.parseInt(reader.readLine());
+//        List<Book> booksAfterDate = this.bookService.updateBookCopies(date, copies);
+//        System.out.println(booksAfterDate.size() * copies);
+
+//        Problem 13
+        Integer copies = Integer.parseInt(reader.readLine());
+        System.out.println(this.bookService.removeBooks(copies));
     }
 }

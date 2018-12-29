@@ -121,6 +121,67 @@ public class BookServiceImpl implements BookService {
         return this.bookRepository.findAllByReleaseDateYearIsNotIn(year);
     }
 
+    @Override
+    public List<Book> getAllBooksByReleaseDateBefore(LocalDate localDate) {
+        return this.bookRepository.findAllByReleaseDateBefore(localDate);
+    }
+
+    @Override
+    public List<Book> getAllBooksByTitleContains(String st) {
+        return this.bookRepository.findAllByTitleContains(st);
+    }
+
+    @Override
+    public int countBooksByTitleLongerThan(int length) {
+        return this.bookRepository.countBooksByTitleGreaterThan(length);
+    }
+
+    @Override
+    public List<String> totalBookCopies() {
+        return this.bookRepository.totalBookCopies();
+    }
+
+    @Override
+    public List<ReducedBook> reduceBook(String title) {
+        List<ReducedBook> reducedBooks = this.bookRepository.reduceBook(title).stream()
+                .map(ob -> new ReducedBook() {
+                    @Override
+                    public String getTitle() {
+                        return ob[0].toString();
+                    }
+
+                    @Override
+                    public String getEditionType() {
+                        return EditionType.values()[Integer.parseInt(ob[1].toString())].name();
+                    }
+
+                    @Override
+                    public String getAgeRestriction() {
+                        return AgeRestriction.values()[Integer.parseInt(ob[2].toString())].name();
+                    }
+
+                    @Override
+                    public String getPrice() {
+                        return ob[3].toString();
+                    }
+                }).collect(Collectors.toList());
+        return reducedBooks;
+    }
+
+    @Override
+    public List<Book> updateBookCopies(LocalDate date, int copies) {
+        List<Book> books = this.bookRepository.findAllByReleaseDateAfter(date);
+        books.forEach(book -> book.setCopies(book.getCopies() + copies));
+        return books;
+    }
+
+    @Override
+    public String removeBooks(int copies) {
+        List<Book> booksToRemove = this.bookRepository.deleteAllByCopiesLessThan(copies);
+
+        return String.format("%d books were deleted", booksToRemove.size());
+    }
+
     private Author getRandomAuthor() {
         Random random = new Random();
         int randomId = random.nextInt((int) (this.authorRepository.count() - 1)) + 1;
@@ -139,7 +200,7 @@ public class BookServiceImpl implements BookService {
         Set<Category> categories = new LinkedHashSet<>();
 
         Random random = new Random();
-        int length = random.nextInt(3);
+        int length = random.nextInt(2);
 
         for (int i = 0; i < length; i++) {
             Category category = this.getRandomCategory();
