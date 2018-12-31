@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
-@Entity(name = "books")
+@Entity
+@Table(name = "books")
 public class Book extends BaseEntity {
     private String title;
     private String description;

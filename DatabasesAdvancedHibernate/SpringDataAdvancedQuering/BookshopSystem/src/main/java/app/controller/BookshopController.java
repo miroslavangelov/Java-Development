@@ -126,7 +126,21 @@ public class BookshopController implements CommandLineRunner {
 //        System.out.println(booksAfterDate.size() * copies);
 
 //        Problem 13
-        Integer copies = Integer.parseInt(reader.readLine());
-        System.out.println(this.bookService.removeBooks(copies));
+//        Integer copies = Integer.parseInt(reader.readLine());
+//        System.out.println(this.bookService.removeBooks(copies));
+
+//        Problem 14
+        String authorFullName = reader.readLine();
+        int booksCount = this.bookService.numberOfBooksByAuthor(authorFullName);
+        if (booksCount == 0) {
+            System.out.println(String.format("%s has not written any books yet", authorFullName));
+        } else {
+            System.out.println(String.format(
+                    "%s has written %d %s",
+                    authorFullName,
+                    booksCount,
+                    booksCount > 1 ? "books" : "book"
+            ));
+        }
     }
 }

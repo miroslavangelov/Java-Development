@@ -38,4 +38,6 @@ public interface BookService {
     List<Book> updateBookCopies(LocalDate date, int copies);
 
     String removeBooks(int copies);
+
+    int numberOfBooksByAuthor(String fullName);
 }

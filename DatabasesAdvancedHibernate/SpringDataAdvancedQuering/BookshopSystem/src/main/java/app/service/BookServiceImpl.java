@@ -8,6 +8,10 @@ import app.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -25,6 +29,8 @@ public class BookServiceImpl implements BookService {
     private final AuthorRepository authorRepository;
     private final CategoryRepository categoryRepository;
     private final FileUtil fileUtil;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository, CategoryRepository categoryRepository, FileUtil fileUtil) {
@@ -180,6 +186,21 @@ public class BookServiceImpl implements BookService {
         List<Book> booksToRemove = this.bookRepository.deleteAllByCopiesLessThan(copies);
 
         return String.format("%d books were deleted", booksToRemove.size());
+    }
+
+    @Override
+    public int numberOfBooksByAuthor(String fullName){
+        StoredProcedureQuery query = entityManager
+                .createStoredProcedureQuery("totalNumberOfBooksByAuthor")
+                .registerStoredProcedureParameter(
+                        "fullName", String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "booksCount", Integer.class, ParameterMode.OUT)
+                .setParameter("fullName", fullName);
+
+        query.execute();
+
+        return (int) query.getOutputParameterValue("booksCount");
     }
 
     private Author getRandomAuthor() {
