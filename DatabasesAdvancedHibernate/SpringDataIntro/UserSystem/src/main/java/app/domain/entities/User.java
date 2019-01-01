@@ -4,6 +4,8 @@ import app.annotations.Email;
 import app.annotations.Password;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -24,10 +26,13 @@ public class User extends BaseEntity {
     private Set<User> friends;
     private Set<Album> albums;
 
-    public User() {
+    public User(String username, String password, String email) {
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setEmail(email);
     }
 
-    @Column(name = "username", length = 30, unique = true)
+    @Column(name = "username", length = 30, unique = true, nullable = false)
     public String getUsername() {
         return username;
     }
@@ -39,13 +44,8 @@ public class User extends BaseEntity {
         this.username = username;
     }
 
+    @Password(minLength = 6, maxLength = 50)
     @Column(name = "password", nullable = false, length = 50)
-    @Password(minLength = 6,
-            maxLength = 50,
-            containsDigit = true,
-            containsLowercase = true,
-            containsSpecialSymbol = true,
-            containsUppercase = true)
     public String getPassword() {
         return password;
     }
@@ -54,8 +54,8 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @Column(name = "email", nullable = false)
     @Email(message = "Invalid email")
+    @Column(name = "email", nullable = false)
     public String getEmail() {
         return email;
     }

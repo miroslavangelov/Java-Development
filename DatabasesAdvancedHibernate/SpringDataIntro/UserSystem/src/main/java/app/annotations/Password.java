@@ -3,6 +3,7 @@ package app.annotations;
 import app.annotations.validators.CustomPasswordValidator;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,6 +19,8 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 @Target({TYPE, FIELD, ANNOTATION_TYPE, METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Password {
+    String message() default "Invalid password";
+
     int minLength();
 
     int maxLength();
@@ -29,4 +32,8 @@ public @interface Password {
     boolean containsUppercase() default true;
 
     boolean containsSpecialSymbol() default true;
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }
