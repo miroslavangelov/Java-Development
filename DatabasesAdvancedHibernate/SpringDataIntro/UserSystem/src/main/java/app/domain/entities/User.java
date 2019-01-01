@@ -4,8 +4,6 @@ import app.annotations.Email;
 import app.annotations.Password;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -26,10 +24,7 @@ public class User extends BaseEntity {
     private Set<User> friends;
     private Set<Album> albums;
 
-    public User(String username, String password, String email) {
-        this.setUsername(username);
-        this.setPassword(password);
-        this.setEmail(email);
+    public User() {
     }
 
     @Column(name = "username", length = 30, unique = true, nullable = false)
