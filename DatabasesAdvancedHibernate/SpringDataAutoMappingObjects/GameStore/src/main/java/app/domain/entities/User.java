@@ -15,11 +15,13 @@ public class User extends BaseEntity {
     private Boolean isLoggedIn;
     private List<Game> games;
 
+    public User() {
+        this.isLoggedIn = false;
+        this.isAdmin = false;
+    }
+
     @Column(name = "password", nullable = false)
-    @Password(minLength = 5,
-            containsDigit = true,
-            containsLowercase = true,
-            containsUppercase = true)
+    @Password(minLength = 5)
     public String getPassword() {
         return password;
     }
@@ -38,7 +40,7 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
-    @Column(name = "full_name")
+    @Column(name = "full_name", nullable = false)
     public String getFullName() {
         return fullName;
     }
@@ -47,7 +49,7 @@ public class User extends BaseEntity {
         this.fullName = fullName;
     }
 
-    @Column(name = "is_admin")
+    @Column(name = "is_admin", nullable = false)
     public Boolean getAdmin() {
         return isAdmin;
     }
@@ -56,7 +58,7 @@ public class User extends BaseEntity {
         isAdmin = admin;
     }
 
-    @Column(name = "is_logged_in")
+    @Column(name = "is_logged_in", nullable = false)
     public Boolean getLoggedIn() {
         return isLoggedIn;
     }
