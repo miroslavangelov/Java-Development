@@ -119,7 +119,7 @@ public class BookServiceImpl implements BookService {
         Set<Category> categories = new LinkedHashSet<>();
 
         Random random = new Random();
-        int length = random.nextInt(3);
+        int length = random.nextInt(2);
 
         for (int i = 0; i < length; i++) {
             Category category = this.getRandomCategory();
