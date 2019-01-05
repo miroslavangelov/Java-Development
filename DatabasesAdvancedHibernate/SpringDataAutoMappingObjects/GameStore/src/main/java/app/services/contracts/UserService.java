@@ -2,11 +2,10 @@ package app.services.contracts;
 
 import app.domain.dtos.LoginUserDto;
 import app.domain.dtos.RegisterUserDto;
+import app.domain.entities.User;
 
 public interface UserService {
     String registerUser(RegisterUserDto userDto);
 
-    String loginUser(LoginUserDto userDto);
-
-    String logoutUser(LoginUserDto userDto);
+    User loginUser(LoginUserDto userDto);
 }

@@ -45,24 +45,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String loginUser(LoginUserDto userDto) {
+    public User loginUser(LoginUserDto userDto) {
         User user = userRepository.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
         if (user != null) {
-            user.setLoggedIn(true);
             userRepository.save(user);
-            return String.format("Successfully logged in %s", user.getFullName());
+            return user;
         }
-        return "Incorrect username / password";
-    }
 
-    @Override
-    public String logoutUser(LoginUserDto userDto) {
-        if (userDto == null) {
-            return "Cannot log out. No user was logged in.";
-        }
-        User user = userRepository.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
-        user.setLoggedIn(false);
-        userRepository.save(user);
-        return String.format("User %s successfully logged out", user.getFullName());
+        return null;
     }
 }

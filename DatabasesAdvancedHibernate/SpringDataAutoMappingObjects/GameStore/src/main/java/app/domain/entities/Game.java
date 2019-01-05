@@ -98,4 +98,19 @@ public class Game extends BaseEntity {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        result.append(String.format("Title: %s", this.getTitle()))
+                .append(System.lineSeparator())
+                .append(String.format("Price: %.2f", this.getPrice()))
+                .append(System.lineSeparator())
+                .append(String.format("Description: %s", this.getDescription()))
+                .append(System.lineSeparator())
+                .append(String.format("Release date: %s", this.getReleaseDate()));
+
+        return result.toString();
+    }
 }

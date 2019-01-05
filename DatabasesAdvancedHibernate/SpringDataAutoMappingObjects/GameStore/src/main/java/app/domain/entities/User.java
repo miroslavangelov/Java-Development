@@ -12,11 +12,9 @@ public class User extends BaseEntity {
     private String email;
     private String fullName;
     private Boolean isAdmin;
-    private Boolean isLoggedIn;
     private List<Game> games;
 
     public User() {
-        this.isLoggedIn = false;
         this.isAdmin = false;
     }
 
@@ -58,16 +56,7 @@ public class User extends BaseEntity {
         isAdmin = admin;
     }
 
-    @Column(name = "is_logged_in", nullable = false)
-    public Boolean getLoggedIn() {
-        return isLoggedIn;
-    }
-
-    public void setLoggedIn(Boolean loggedIn) {
-        isLoggedIn = loggedIn;
-    }
-
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_games",
             joinColumns =
             @JoinColumn(name = "user_id", referencedColumnName = "id"),
