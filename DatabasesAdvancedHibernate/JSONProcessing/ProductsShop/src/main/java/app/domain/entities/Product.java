@@ -57,9 +57,9 @@ public class Product extends BaseEntity {
     @ManyToMany
     @JoinTable(name = "categories_products",
             joinColumns =
-            @JoinColumn(name = "category_id", referencedColumnName = "id"),
+            @JoinColumn(name = "product_id", referencedColumnName = "id"),
             inverseJoinColumns =
-            @JoinColumn(name = "product_id", referencedColumnName = "id"))
+            @JoinColumn(name = "category_id", referencedColumnName = "id"))
     public List<Category> getCategories() {
         return categories;
     }

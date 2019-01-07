@@ -21,6 +21,7 @@ public class ProductsShopController implements CommandLineRunner {
     private final static String CATEGORY_FILE_PATH = "C:\\Users\\Miroslav Angelov\\IdeaProjects\\ProductsShop\\src\\main\\resources\\files\\categories.json";
     private final static String PRODUCT_IN_RANGE_FILE_PATH = "C:\\Users\\Miroslav Angelov\\IdeaProjects\\ProductsShop\\src\\main\\resources\\files\\output\\products-in-range.json";
     private final static String USER_SOLD_PRODUCTS_FILE_PATH = "C:\\Users\\Miroslav Angelov\\IdeaProjects\\ProductsShop\\src\\main\\resources\\files\\output\\users-sold-products.json";
+    private final static String CATEGORY_BY_PRODUCTS_FILE_PATH = "C:\\Users\\Miroslav Angelov\\IdeaProjects\\ProductsShop\\src\\main\\resources\\files\\output\\categories-by-products.json";
 
     private final UserService userService;
     private final ProductService productService;
@@ -44,7 +45,8 @@ public class ProductsShopController implements CommandLineRunner {
 //        this.seedProducts();
 
 //        this.productsInRange();
-        this.usersSoldProducts();
+//        this.usersSoldProducts();
+        this.categoriesByProductsCount();
     }
 
     private void seedUsers() throws IOException {
@@ -80,5 +82,12 @@ public class ProductsShopController implements CommandLineRunner {
         String usersSoldProductsJson = this.gson.toJson(userDtos);
 
         this.fileUtil.writeFile(USER_SOLD_PRODUCTS_FILE_PATH, usersSoldProductsJson);
+    }
+
+    private void categoriesByProductsCount() throws IOException {
+        List<CategoriesByProductsCountDto> categoryDtos = this.categoryService.categoriesByProductsCount();
+        String categoriesByProductsCountJson = this.gson.toJson(categoryDtos);
+
+        this.fileUtil.writeFile(CATEGORY_BY_PRODUCTS_FILE_PATH, categoriesByProductsCountJson);
     }
 }
