@@ -1,9 +1,6 @@
 package app.services;
 
-import app.domain.dtos.SoldProductBuyerDto;
-import app.domain.dtos.UserSeedDto;
-import app.domain.dtos.UserSoldProductsDto;
-import app.domain.entities.Product;
+import app.domain.dtos.*;
 import app.domain.entities.User;
 import app.repositories.UserRepository;
 import app.utils.ValidatorUtil;
@@ -13,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserSoldProductsDto> getUsersSoldProucts() {
+    public List<UserSoldProductsDto> getUsersSoldProducts() {
         List<User> users = this.userRepository.findUsersBySoldProducts();
         List<UserSoldProductsDto> userDtos = new ArrayList<>();
 
@@ -54,8 +52,6 @@ public class UserServiceImpl implements UserService {
                 .filter(product -> product.getBuyer() != null)
                 .forEach(product -> {
                     SoldProductBuyerDto productDto = this.modelMapper.map(product, SoldProductBuyerDto.class);
-                    productDto.setBuyerFirstName(product.getBuyer().getFirstName());
-                    productDto.setBuyerLastName(product.getBuyer().getLastName());
                     productDtos.add(productDto);
                 });
 
@@ -65,5 +61,45 @@ public class UserServiceImpl implements UserService {
         }
 
         return userDtos;
+    }
+
+    @Override
+    public UsersAndProductsDto getUsersAndProducts() {
+        List<User> usersWithSales = this.userRepository.findUsersBySoldProducts();
+        UsersAndProductsDto userDto = new UsersAndProductsDto();
+        List<UsersWithSalesDto> usersWithSalesDtos = new ArrayList<>();
+
+        for (User user: usersWithSales) {
+            List<ProductsDto> productsDtos = new ArrayList<>();
+
+            user.getSoldProducts().stream()
+                    .filter(product -> product.getBuyer() != null)
+                    .forEach(product -> {
+                        ProductsDto productsDto = this.modelMapper.map(product, ProductsDto.class);
+                        productsDtos.add(productsDto);
+                    });
+            SoldProductsDto soldProductsDto = new SoldProductsDto();
+            soldProductsDto.setProducts(productsDtos);
+            soldProductsDto.setCount(productsDtos.size());
+
+            UsersWithSalesDto usersWithSalesDto = this.modelMapper.map(user, UsersWithSalesDto.class);
+            usersWithSalesDto.setSoldProducts(soldProductsDto);
+            usersWithSalesDtos.add(usersWithSalesDto);
+        }
+
+        usersWithSalesDtos = usersWithSalesDtos.stream()
+                .sorted((firstUser, secondUser) -> {
+                    int cmp = secondUser.getSoldProducts().getCount() - firstUser.getSoldProducts().getCount();
+                    if (cmp == 0) {
+                        cmp = firstUser.getLastName().compareTo(secondUser.getLastName());
+                    }
+                    return cmp;
+                })
+                .collect(Collectors.toList());
+
+        userDto.setUsersCount(usersWithSalesDtos.size());
+        userDto.setUsers(usersWithSalesDtos);
+
+        return userDto;
     }
 }

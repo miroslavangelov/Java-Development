@@ -22,6 +22,7 @@ public class ProductsShopController implements CommandLineRunner {
     private final static String PRODUCT_IN_RANGE_FILE_PATH = "C:\\Users\\Miroslav Angelov\\IdeaProjects\\ProductsShop\\src\\main\\resources\\files\\output\\products-in-range.json";
     private final static String USER_SOLD_PRODUCTS_FILE_PATH = "C:\\Users\\Miroslav Angelov\\IdeaProjects\\ProductsShop\\src\\main\\resources\\files\\output\\users-sold-products.json";
     private final static String CATEGORY_BY_PRODUCTS_FILE_PATH = "C:\\Users\\Miroslav Angelov\\IdeaProjects\\ProductsShop\\src\\main\\resources\\files\\output\\categories-by-products.json";
+    private final static String USERS_AND_PRODUCTS_FILE_PATH = "C:\\Users\\Miroslav Angelov\\IdeaProjects\\ProductsShop\\src\\main\\resources\\files\\output\\users-and-products.json";
 
     private final UserService userService;
     private final ProductService productService;
@@ -44,9 +45,10 @@ public class ProductsShopController implements CommandLineRunner {
 //        this.seedCategories();
 //        this.seedProducts();
 
-//        this.productsInRange();
-//        this.usersSoldProducts();
+        this.productsInRange();
+        this.usersSoldProducts();
         this.categoriesByProductsCount();
+        this.usersAndProducts();
     }
 
     private void seedUsers() throws IOException {
@@ -78,7 +80,7 @@ public class ProductsShopController implements CommandLineRunner {
     }
 
     private void usersSoldProducts() throws IOException {
-        List<UserSoldProductsDto> userDtos = this.userService.getUsersSoldProucts();
+        List<UserSoldProductsDto> userDtos = this.userService.getUsersSoldProducts();
         String usersSoldProductsJson = this.gson.toJson(userDtos);
 
         this.fileUtil.writeFile(USER_SOLD_PRODUCTS_FILE_PATH, usersSoldProductsJson);
@@ -89,5 +91,12 @@ public class ProductsShopController implements CommandLineRunner {
         String categoriesByProductsCountJson = this.gson.toJson(categoryDtos);
 
         this.fileUtil.writeFile(CATEGORY_BY_PRODUCTS_FILE_PATH, categoriesByProductsCountJson);
+    }
+
+    private void usersAndProducts() throws  IOException {
+        UsersAndProductsDto usersAndProductsDto = this.userService.getUsersAndProducts();
+        String usersAndProductsJson = this.gson.toJson(usersAndProductsDto);
+
+        this.fileUtil.writeFile(USERS_AND_PRODUCTS_FILE_PATH, usersAndProductsJson);
     }
 }
