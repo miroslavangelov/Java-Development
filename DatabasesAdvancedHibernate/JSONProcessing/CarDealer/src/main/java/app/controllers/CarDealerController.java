@@ -45,17 +45,17 @@ public class CarDealerController implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        this.seedSuppliers();
-//        this.seedParts();
-//        this.seedCustomers();
-//        this.seedCars();
-//        this.saleService.seedSales();
+        this.seedSuppliers();
+        this.seedParts();
+        this.seedCustomers();
+        this.seedCars();
+        this.saleService.seedSales();
 
-//        this.orderedCustomers();
-//        this.toyotaCars();
-//        this.localSuppliers();
-//        this.carsAndParts();
-//        this.customersWithSales();
+        this.orderedCustomers();
+        this.toyotaCars();
+        this.localSuppliers();
+        this.carsAndParts();
+        this.customersWithSales();
         this.salesWithDiscounts();
     }
 
