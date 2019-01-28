@@ -1,8 +1,6 @@
-package javache.http;
+package app.http;
 
-import javache.constants.HttpStatus;
-import javache.constants.WebConstants;
-
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +8,7 @@ import java.util.Map;
 
 public class HttpResponseImpl implements HttpResponse {
     private Map<String, String> headers;
-    private HttpStatus statusCode;
+    private HttpStatus httpStatus;
     private byte[] content;
 
     public HttpResponseImpl() {
@@ -24,13 +22,23 @@ public class HttpResponseImpl implements HttpResponse {
     }
 
     @Override
-    public HttpStatus getStatusCode() {
-        return this.statusCode;
+    public HttpStatus getHttpStatus() {
+        return this.httpStatus;
+    }
+
+    @Override
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
     }
 
     @Override
     public byte[] getContent() {
         return this.content;
+    }
+
+    @Override
+    public void setContent(byte[] content) {
+        this.content = content;
     }
 
     @Override
@@ -43,16 +51,7 @@ public class HttpResponseImpl implements HttpResponse {
         System.arraycopy(headersBytes, 0, fullResponse, 0, headersBytes.length);
         System.arraycopy(bodyBytes, 0, fullResponse, headersBytes.length, bodyBytes.length);
 
-        return fullResponse;    }
-
-    @Override
-    public void setStatusCode(HttpStatus statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    @Override
-    public void setContent(byte[] content) {
-        this.content = content;
+        return fullResponse;
     }
 
     @Override
@@ -62,17 +61,13 @@ public class HttpResponseImpl implements HttpResponse {
 
     private byte[] getHeadersBytes() {
         StringBuilder headers = new StringBuilder();
-        headers.append(String.format("%s %s", WebConstants.HTTP_PROTOCOL_1, this.getStatusCode().getStatusPhrase()))
+        headers.append(String.format("HTTP/1.1 %d %s", this.getHttpStatus().getCode(), this.getHttpStatus().getName()))
                 .append(System.lineSeparator());
         for (Map.Entry<String, String> entry : this.headers.entrySet()) {
             headers.append(entry.getKey()).append(": ").append(entry.getValue()).append(System.lineSeparator());
         }
-
-        headers.append(String.format("Date: %s", new Date())).append(System.lineSeparator());
-        headers.append("Server: Javache/1.1.1").append(System.lineSeparator());
         headers.append(System.lineSeparator());
 
         return headers.toString().getBytes();
     }
-
 }

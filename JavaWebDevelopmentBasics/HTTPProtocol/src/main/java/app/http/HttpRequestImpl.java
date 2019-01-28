@@ -1,11 +1,14 @@
-package javache.http;
+package app.http;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpRequestImpl implements HttpRequest {
     private String method;
     private String requestUrl;
-    private Map<String, String> headers;
+    private Map<String,String> headers;
     private Map<String, String> bodyParameters;
 
     public HttpRequestImpl(String requestContent) {
@@ -63,6 +66,7 @@ public class HttpRequestImpl implements HttpRequest {
         String[] lines = requestContent.split("\r\n");
         this.parseRequestFirstLine(lines[0]);
         String[] remainLines = Arrays.stream(lines).skip(1).toArray(String[]::new);
+
         String bodyParameters = this.parseRequestHeaders(remainLines);
         if (!"".equals(bodyParameters)) {
             this.parseBodyParameters(bodyParameters);
@@ -99,7 +103,9 @@ public class HttpRequestImpl implements HttpRequest {
             String[] parameters = bodyParameters.split("&");
             for (String parameter : parameters) {
                 String[] parameterTokens = parameter.split("=");
-                this.addBodyParameter(parameterTokens[0], parameterTokens[1]);
+                if (parameterTokens.length > 1) {
+                    this.addBodyParameter(parameterTokens[0], parameterTokens[1]);
+                }
             }
         }
     }
