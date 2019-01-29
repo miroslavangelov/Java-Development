@@ -1,7 +1,8 @@
-package javache.http;
+package app.http;
 
 public interface HttpCookie {
-    String getName();
+    String getKey();
 
     String getValue();
 }
+

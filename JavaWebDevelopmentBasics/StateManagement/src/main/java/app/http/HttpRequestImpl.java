@@ -1,19 +1,13 @@
-package javache.http;
+package app.http;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class HttpRequestImpl implements HttpRequest {
     private String method;
-
     private String requestUrl;
-
-    private HashMap<String, String> headers;
-
-    private HashMap<String, String> bodyParameters;
-
-    private HashMap<String, HttpCookie> cookies;
+    private Map<String, String> headers;
+    private Map<String, String> bodyParameters;
+    private List<HttpCookie> cookies;
 
     public HttpRequestImpl(String requestContent) {
         this.initMethod(requestContent);
@@ -40,25 +34,23 @@ public class HttpRequestImpl implements HttpRequest {
         int i = 1;
 
         while(i < requestParams.size() && requestParams.get(i).length() > 0) {
-            String[] headerKeyValuePair = requestParams.get(i).split("\\:\\s");
+            String[] headerKeyValuePair = requestParams.get(i).split(":\\s");
 
             this.addHeader(headerKeyValuePair[0], headerKeyValuePair[1]);
-
             i++;
         }
     }
 
     private void initBodyParameters(String requestContent) {
-        if(this.getMethod().equals("POST")) {
+        if (this.getMethod().equals("POST")) {
             this.bodyParameters = new HashMap<>();
-
             List<String> requestParams = Arrays.asList(requestContent.split("\\r\\n"));
 
-            if(requestParams.size() > this.headers.size() + 2) {
-                List<String> bodyParams = Arrays.asList(requestParams.get(this.headers.size() + 2).split("\\&"));
+            if (requestParams.size() > this.headers.size() + 2) {
+                List<String> bodyParams = Arrays.asList(requestParams.get(this.headers.size() + 2).split("&"));
 
-                for (int i = 0; i < bodyParams.size(); i++) {
-                    String[] bodyKeyValuePair = bodyParams.get(i).split("\\=");
+                for (String bodyParam: bodyParams) {
+                    String[] bodyKeyValuePair = bodyParam.split("=");
 
                     this.addBodyParameter(bodyKeyValuePair[0], bodyKeyValuePair[1]);
                 }
@@ -67,35 +59,35 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     private void initCookies() {
-        this.cookies = new HashMap<>();
+        this.cookies = new ArrayList<>();
 
-        if(!this.headers.containsKey("Cookie")) {
+        if (!this.headers.containsKey("Cookie")) {
             return;
         }
 
         String cookiesHeader = this.headers.get("Cookie");
-        String[] allCookies = cookiesHeader.split("\\;\\s");
+        String[] allCookies = cookiesHeader.split(";\\s");
 
-        for (int i = 0; i < allCookies.length; i++) {
-            String[] cookieNameValuePair = allCookies[i].split("\\=");
+        for (String cookie: allCookies) {
+            String[] cookieNameValuePair = cookie.split("=");
 
-            this.cookies.putIfAbsent(cookieNameValuePair[0], new HttpCookieImpl(cookieNameValuePair[0], cookieNameValuePair[1]));
+            this.cookies.add(new HttpCookieImpl(cookieNameValuePair[0], cookieNameValuePair[1]));
         }
     }
 
     @Override
-    public HashMap<String, String> getHeaders() {
-        return this.headers;
+    public Map<String, String> getHeaders() {
+        return Collections.unmodifiableMap(this.headers);
     }
 
     @Override
-    public HashMap<String, String> getBodyParameters() {
-        return this.bodyParameters;
+    public Map<String, String> getBodyParameters() {
+        return Collections.unmodifiableMap(this.bodyParameters);
     }
 
     @Override
-    public HashMap<String, HttpCookie> getCookies() {
-        return this.cookies;
+    public List<HttpCookie> getCookies() {
+        return Collections.unmodifiableList(this.cookies);
     }
 
     @Override
@@ -110,7 +102,7 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public String getRequestUrl() {
-        return this.requestUrl;
+        return this.requestUrl = requestUrl;
     }
 
     @Override

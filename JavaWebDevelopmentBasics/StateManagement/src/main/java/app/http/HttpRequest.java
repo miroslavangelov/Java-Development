@@ -1,13 +1,14 @@
-package javache.http;
+package app.http;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface HttpRequest {
-    HashMap<String, String> getHeaders();
+    Map<String, String> getHeaders();
 
-    HashMap<String, String> getBodyParameters();
+    Map<String, String> getBodyParameters();
 
-    HashMap<String, HttpCookie> getCookies();
+    List<HttpCookie> getCookies();
 
     String getMethod();
 
