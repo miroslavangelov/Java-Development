@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="templates/base-layout.xhtml">
+    <ui:define name="main-content">
+        <hr class="my-2"/>
+        <h1 class="text-center">Register</h1>
+        <hr class="hr-2"/>
+        <h:form class="mx-auto w-15">
+            <div class="form-group">
+                <div class="label-holder d-flex justify-content-center">
+                    <h:outputLabel for="username" value="Username" class="h3 mb-2" />
+                </div>
+                <h:inputText id="username" class="form-control" value="#{userRegisterBean.userRegisterBindingModel.username}" />
+            </div>
+            <div class="form-group">
+                <div class="label-holder d-flex justify-content-center">
+                    <h:outputLabel for="password" value="Password" class="h3 mb-2" />
+                </div>
+                <h:inputSecret id="password" class="form-control" value="#{userRegisterBean.userRegisterBindingModel.password}" />
+            </div>
+            <div class="form-group">
+                <div class="label-holder d-flex justify-content-center">
+                    <h:outputLabel for="confirmPassword" value="Confirm Password" class="h3 mb-2" />
+                </div>
+                <h:inputSecret id="confirmPassword" class="form-control" value="#{userRegisterBean.userRegisterBindingModel.confirmPassword}" />
+            </div>
+            <div class="form-group">
+                <div class="label-holder d-flex justify-content-center">
+                    <h:outputLabel for="gender" value="Gender" class="h3 mb-2" />
+                </div>
+                <h:inputText id="gender" class="form-control" value="#{userRegisterBean.userRegisterBindingModel.gender}" />
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <h:commandButton type="submit" action="#{userRegisterBean.register}" class="btn btn-info text-white" value="Register" />
+            </div>
+        </h:form>
+        <hr class="my-3" />
+    </ui:define>
+</ui:composition>
+
+</html>
