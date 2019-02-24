@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Sbojgb:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Sboj_gb-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Sbojgb:war exploded" />
+    </root>
+  </artifact>
+</component>

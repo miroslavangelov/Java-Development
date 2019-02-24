@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="templates/base-layout.xhtml">
+    <ui:define name="main-content">
+        <hr class="my-3"/>
+        <h1 class="text-center">Delete Job</h1>
+        <hr class="hr-3"/>
+        <h:form class="mx-auto w-15">
+            <div class="form-group">
+                <div class="label-holder d-flex justify-content-center">
+                    <h:outputLabel for="sector" value="Sector" class="h3 mb-2" />
+                </div>
+                <h:inputText id="sector" class="form-control" value="#{jobApplicationDeleteBean.getJob(request.getParameter('id')).sector}" disabled="true"/>
+            </div>
+            <div class="form-group">
+                <div class="label-holder d-flex justify-content-center">
+                    <h:outputLabel for="profession" value="Profession" class="h3 mb-2" />
+                </div>
+                <h:inputText id="profession" class="form-control" value="#{jobApplicationDeleteBean.getJob(request.getParameter('id')).profession}" disabled="true"/>
+            </div>
+            <div class="form-group">
+                <div class="label-holder d-flex justify-content-center">
+                    <h:outputLabel for="salary" value="Salary" class="h3 mb-2" />
+                </div>
+                <h:inputText id="salary" class="form-control" value="#{jobApplicationDeleteBean.getJob(request.getParameter('id')).salary}" disabled="true"/>
+            </div>
+            <div class="form-group">
+                <div class="label-holder d-flex justify-content-center">
+                    <h:outputLabel for="description" value="Description" class="h3 mb-2" />
+                </div>
+                <h:inputTextarea rows="4" id="description" class="form-control" value="#{jobApplicationDeleteBean.getJob(request.getParameter('id')).description}" disabled="true"/>
+            </div>
+            <input type="hidden" value="#{jobApplicationDeleteBean.getJob(request.getParameter('id')).id}" name="id"/>
+            <div class="button-holder d-flex justify-content-center">
+                <h:commandButton type="submit" action="#{jobApplicationDeleteBean.deleteJob}" class="btn btn-danger text-white" value="Delete Job" />
+            </div>
+        </h:form>
+        <hr class="my-3"/>
+    </ui:define>
+</ui:composition>
+</html>

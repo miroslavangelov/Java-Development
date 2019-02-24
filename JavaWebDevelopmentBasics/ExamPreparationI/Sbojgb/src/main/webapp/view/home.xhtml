@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="templates/base-layout.xhtml">
+    <ui:define name="main-content">
+        <hr class="my-3"/>
+        <div class="text-center mb-3">
+            <h4 class="text-info">Welcome, #{session.getAttribute('username')}</h4>
+        </div>
+        <hr class="my-3"/>
+        <div class="container">
+            <div class="row mb-4 d-flex justify-content-around">
+                <c:forEach items="#{jobApplicationHomeBean.jobs}" var="job">
+                    <div class="col-md-3 d-flex flex-column text-center">
+                        <c:choose>
+                            <c:when test="#{job.sector == 'Medicine'}">
+                                <h:graphicImage library="lib" name="jpg/medicine.jpg" class="img-thumbnail" width="300" height="300" />
+                            </c:when>
+                            <c:when test="#{job.sector == 'Car'}">
+                                <h:graphicImage library="lib" name="jpg/car.jpg" class="img-thumbnail" width="300" height="300" />
+                            </c:when>
+                            <c:when test="#{job.sector == 'Food'}">
+                                <h:graphicImage library="lib" name="jpg/food.jpg" class="img-thumbnail" width="300" height="300" />
+                            </c:when>
+                            <c:when test="#{job.sector == 'Domestic'}">
+                                <h:graphicImage library="lib" name="jpg/domestic.jpg" class="img-thumbnail" width="300" height="300" />
+                            </c:when>
+                            <c:otherwise>
+                                <h:graphicImage library="lib" name="jpg/security.jpg" class="img-thumbnail" width="300" height="300" />
+                            </c:otherwise>
+                        </c:choose>
+                        <h5 class="text-center">#{job.profession}</h5>
+                        <h:link value="Details" outcome="job-details?id=#{job.id}" class="btn btn-info"/>
+                        <h:link value="Delete" outcome="delete-job?id=#{job.id}" class="btn btn-danger"/>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+        <hr class="my-3"/>
+    </ui:define>
+</ui:composition>
+</html>
