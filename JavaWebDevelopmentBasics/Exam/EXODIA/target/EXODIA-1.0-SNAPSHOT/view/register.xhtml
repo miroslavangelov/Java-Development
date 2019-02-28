@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="templates/base-layout.xhtml">
+    <ui:define name="main-content">
+        <hr class="bg-exodia hr-2"/>
+        <h1 class="text-center text-exodia">Register</h1>
+        <hr class="bg-exodia w-25 hr-2"/>
+        <h:form class="mx-auto w-25">
+            <div class="form-group">
+                <h:outputLabel for="username" value="Username" class="text-exodia" />
+                <h:inputText id="username" class="form-control" value="#{userRegisterBean.userRegisterBindingModel.username}" />
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="password" value="Password" class="text-exodia" />
+                <h:inputSecret id="password" class="form-control" value="#{userRegisterBean.userRegisterBindingModel.password}" />
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="confirmPassword" value="Confirm Password" class="text-exodia" />
+                <h:inputSecret id="confirmPassword" class="form-control" value="#{userRegisterBean.userRegisterBindingModel.confirmPassword}" />
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="email" value="Email" class="text-exodia" />
+                <h:inputText id="email" class="form-control" value="#{userRegisterBean.userRegisterBindingModel.email}" />
+            </div>
+            <hr class="bg-exodia hr-2"/>
+            <div class="button-holder mt-4 d-flex justify-content-center">
+                <h:commandButton type="submit" action="#{userRegisterBean.register}" class="btn bg-exodia text-white" value="Register" />
+            </div>
+        </h:form>
+        <hr class="bg-exodia hr-2 mt-5"/>
+    </ui:define>
+</ui:composition>
+
+</html>

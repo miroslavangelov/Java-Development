@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="EXODIA:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="EXODIA-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="EXODIA:war exploded" />
+    </root>
+  </artifact>
+</component>

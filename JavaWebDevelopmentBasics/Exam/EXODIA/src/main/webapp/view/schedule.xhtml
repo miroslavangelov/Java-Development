@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="templates/base-layout.xhtml">
+    <ui:define name="main-content">
+        <hr class="bg-exodia hr-2"/>
+        <h1 class="text-center text-exodia">Schedule</h1>
+        <hr class="bg-exodia hr-2 w-75"/>
+        <h:form class="mx-auto w-75">
+            <div class="form-group">
+                <div class="label-center d-flex justify-content-center">
+                    <h:outputLabel for="title" value="Title" class="text-exodia h3" />
+                </div>
+                <h:inputText id="title" class="form-control" value="#{documentScheduleBean.documentScheduleBindingModel.title}" />
+            </div>
+            <div class="form-group">
+                <div class="label-center d-flex justify-content-center">
+                    <h:outputLabel for="content" value="Content" class="text-exodia h3" />
+                </div>
+                <h:inputTextarea rows="10" class="form-control" id="content" value="#{documentScheduleBean.documentScheduleBindingModel.content}" />
+            </div>
+            <hr class="bg-exodia hr-2"/>
+            <div class="button-holder d-flex justify-content-center">
+                <h:commandButton type="submit" action="#{documentScheduleBean.scheduleDocument}" class="btn bg-exodia text-white" value="Schedule" />
+            </div>
+        </h:form>
+        <hr class="bg-exodia hr-2 mt-5"/>
+    </ui:define>
+</ui:composition>
+</html>
