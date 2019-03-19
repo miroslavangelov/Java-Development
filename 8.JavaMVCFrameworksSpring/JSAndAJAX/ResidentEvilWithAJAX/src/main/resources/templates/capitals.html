@@ -1,0 +1,22 @@
+<form th:action="@{/viruses/show}">
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="capital,iter : ${capitals}">
+            <tr>
+                <th scope="row" th:text="${iter.index + 1}"></th>
+                <td th:text="${capital.name}"></td>
+                <td th:text="${capital.latitude}"></td>
+                <td th:text="${capital.longitude}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</form>

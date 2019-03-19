@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <main>
+        <div class="container mt-4">
+            <div class="float-md-right">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="viruses" name="view">
+                    <label class="custom-control-label" for="viruses">Viruses</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="capitals" name="view">
+                    <label class="custom-control-label" for="capitals">Capitals</label>
+                </div>
+            </div>
+            <h1 class="header_view">Your Choice</h1>
+            <div class="set_view">Select what data you want to visualize!</div>
+        </div>
+    </main>
+</div>
+<script type="text/javascript">
+    $('#capitals').click(function() {
+        $(".header_view").text("All Capitals");
+        $('.set_view').html("");
+        $('.set_view').load("capitals-list");
+    });
+    $('#viruses').click(function() {
+        $(".header_view").text("All Viruses");
+        $('.set_view').html("");
+        $('.set_view').load("viruses-list");
+    });
+</script>
+</body>
+</html>
