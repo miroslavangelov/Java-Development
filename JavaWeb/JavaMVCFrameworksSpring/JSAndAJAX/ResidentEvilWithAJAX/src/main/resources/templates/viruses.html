@@ -1,0 +1,26 @@
+<form th:action="@{/viruses/show}">
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Magnitude</th>
+                <th>Released On</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="virus,iter : ${viruses}">
+            <tr>
+                <th scope="row" th:text="${iter.index + 1}"></th>
+                <td th:text="${virus.name}"></td>
+                <td th:text="${virus.magnitude}"></td>
+                <td th:text="${virus.releasedOn}"></td>
+                <td><a th:href="@{/viruses/edit/{id}(id=${virus.id})}" class="btn btn-light">Edit</a></td>
+                <td><a th:href="@{/viruses/delete/{id}(id=${virus.id})}" class="btn btn-light">Delete</a></td>
+            </tr>
+            </th:block>
+        </tbody>
+    </table>
+</form>
