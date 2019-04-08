@@ -1,4 +1,4 @@
-package app.web.service;
+package app.service;
 
 import app.domain.entities.BaseEntity;
 import app.domain.entities.Category;
@@ -8,10 +8,6 @@ import app.domain.models.service.ProductServiceModel;
 import app.domain.models.view.ProductViewModel;
 import app.repository.CategoryRepository;
 import app.repository.ProductRepository;
-import app.service.CloudinaryService;
-import app.service.CloudinaryServiceImpl;
-import app.service.ProductService;
-import app.service.ProductServiceImpl;
 import com.cloudinary.Cloudinary;
 import org.junit.Assert;
 import org.junit.Before;

@@ -23,13 +23,13 @@ public class CategoryController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("hasAuthority('MODERATOR')")
-    public ModelAndView addView() {
+    public ModelAndView addCategoryView() {
         return super.view("categories/add-category");
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('MODERATOR')")
-    public ModelAndView categoryAction(@ModelAttribute CategoryAddBindingModel categoryAddBindingModel) {
+    public ModelAndView addCategoryAction(@ModelAttribute CategoryAddBindingModel categoryAddBindingModel) {
         if (!this.categoryService.addCategory(categoryAddBindingModel)) {
             return super.redirect("/categories/add");
         }

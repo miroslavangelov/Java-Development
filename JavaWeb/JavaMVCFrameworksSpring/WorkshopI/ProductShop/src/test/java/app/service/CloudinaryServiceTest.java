@@ -1,7 +1,5 @@
-package app.web.service;
+package app.service;
 
-import app.service.CloudinaryService;
-import app.service.CloudinaryServiceImpl;
 import com.cloudinary.Cloudinary;
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,11 +1,9 @@
-package app.web.service;
+package app.service;
 
 import app.domain.entities.Category;
 import app.domain.models.binding.CategoryAddBindingModel;
 import app.domain.models.service.CategoryServiceModel;
 import app.repository.CategoryRepository;
-import app.service.CategoryService;
-import app.service.CategoryServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

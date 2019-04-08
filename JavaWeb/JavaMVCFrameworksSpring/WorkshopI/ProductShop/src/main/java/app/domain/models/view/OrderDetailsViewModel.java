@@ -67,7 +67,7 @@ public class OrderDetailsViewModel {
 
     public String getOrderDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        LocalDateTime localDate = LocalDateTime.parse(orderDate, formatter);
+        LocalDateTime localDate = LocalDateTime.parse(this.orderDate, formatter);
 
         return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(localDate);
     }

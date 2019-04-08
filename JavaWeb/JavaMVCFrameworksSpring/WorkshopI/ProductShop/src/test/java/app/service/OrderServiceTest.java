@@ -1,10 +1,9 @@
-package app.web.service;
+package app.service;
 
 import app.domain.entities.*;
 import app.domain.models.binding.OrderAddBindingModel;
 import app.domain.models.service.OrderServiceModel;
 import app.repository.*;
-import app.service.*;
 import com.cloudinary.Cloudinary;
 import org.junit.Assert;
 import org.junit.Before;
