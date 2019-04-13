@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <main class="mt-3">
+        <h1 class="text-center text-dark">Order Product</h1>
+        <hr class="hr-2 bg-dark w-25">
+        <form class="form w-25 mx-auto" th:action="@{/products/order/{id}(id=${product.id})}" method="post">
+            <div class="form-group">
+                <label for="customer" class="font-weight-bold">Customer</label>
+                <input type="text" th:value="${#authentication.getPrincipal().getUsername()}" class="form-control" name="customer" id="customer" readonly="">
+            </div>
+            <div class="form-group">
+                <label for="productName" class="font-weight-bold">Name</label>
+                <input type="text" th:value="${product.name}" class="form-control" name="productName" id="productName" readonly="">
+            </div>
+            <div class="form-group">
+                <label for="productDescription" class="font-weight-bold">Description</label>
+                <textarea name="productDescription" id="productDescription" cols="41" rows="5" th:text="${product.description}" disabled=""></textarea>
+            </div>
+            <div class="form-group">
+                <label for="productPrice" class="font-weight-bold">Price</label>
+                <input type="number" th:value="${product.price}" class="form-control" name="productPrice" id="productPrice" readonly="">
+            </div>
+            <div class="form-group">
+                <label for="quantity" class="font-weight-bold">Quantity</label>
+                <input type="number" class="form-control" name="quantity" id="quantity" required>
+            </div>
+            <input type="hidden" name="productId" id="productId" th:value="${product.id}">
+            <hr class="hr-2 bg-success">
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-success">Order Product</button>
+            </div>
+        </form>
+    </main>
+    <footer class="mt-3">
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>
