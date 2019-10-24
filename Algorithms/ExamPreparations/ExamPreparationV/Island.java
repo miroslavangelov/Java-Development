@@ -13,7 +13,6 @@ public class Island {
         columns = Arrays.stream(reader.readLine().split(" "))
                 .mapToInt(Integer::parseInt)
                 .toArray();
-        int[] counts = new int[columns.length];
         int maxArea = 0;
 
         for (int i = 0; i < columns.length; i++) {
@@ -23,7 +22,7 @@ public class Island {
 
             for (int j = i - 1; j >= 0; j--) {
                 if (columns[j] == currentColumn) {
-                    counter = counts[j];
+                    counter = 0;
                     lookForward = false;
                     break;
                 } else if (columns[j] > currentColumn) {
