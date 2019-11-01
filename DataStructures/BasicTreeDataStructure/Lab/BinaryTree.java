@@ -1,4 +1,4 @@
-package DataStructures.BasicTreeDataStructure;
+package DataStructures.BasicTreeDataStructure.Lab;
 
 import java.util.function.Consumer;
 
