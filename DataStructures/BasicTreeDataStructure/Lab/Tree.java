@@ -5,12 +5,18 @@ import java.util.function.Consumer;
 
 public class Tree<T> {
     private T value;
+    private Tree<T> parent;
     private List<Tree<T>> children;
 
     public Tree(T value, Tree<T>... children) {
         this.value = value;
         this.children = new ArrayList<>();
         this.children.addAll(Arrays.asList(children));
+    }
+
+    public void addChild(Tree<T> element) {
+        children.add(element);
+        element.setParent(this);
     }
 
     // append output to builder
@@ -56,6 +62,21 @@ public class Tree<T> {
         return result;
     }
 
+    private void DFS(List<T> result) {
+        for (Tree<T> child: children) {
+            child.DFS(result);
+        }
+        result.add(this.getValue());
+    }
+
+    public Tree<T> getParent() {
+        return parent;
+    }
+
+    public void setParent(Tree<T> parent) {
+        this.parent = parent;
+    }
+
     public T getValue() {
         return value;
     }
@@ -70,12 +91,5 @@ public class Tree<T> {
 
     public void setChildren(List<Tree<T>> children) {
         this.children = children;
-    }
-
-    private void DFS(List<T> result) {
-        for (Tree<T> child: children) {
-            child.DFS(result);
-        }
-        result.add(this.getValue());
     }
 }
