@@ -1,9 +1,10 @@
 package DataStructures.HashTables.Lab;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class HashTable<TKey, TValue> implements Iterable<KeyValue<TKey, TValue>> {
+public class HashTable<TKey  extends Comparable, TValue> implements Iterable<KeyValue<TKey, TValue>> {
     private static final int INITIAL_CAPACITY = 16;
     private static final float LOAD_FACTOR = 0.75f;
 
@@ -158,6 +159,20 @@ public class HashTable<TKey, TValue> implements Iterable<KeyValue<TKey, TValue>>
         }
 
         return values;
+    }
+
+    public Iterable<KeyValue<TKey, TValue>> sortPairs() {
+        LinkedList<KeyValue<TKey,TValue>> result = new LinkedList<>();
+
+        for (LinkedList<KeyValue<TKey,TValue>> slot : this.slots) {
+            if (slot != null) {
+                result.addAll(slot);
+            }
+        }
+
+        result.sort(Comparator.comparing(KeyValue::getKey));
+
+        return result;
     }
 
     @Override
